@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>cq</title>
+	<style>
+		*{margin: 0px;padding: 0px;}
+		li{list-style: none;}
+		body{
+			font-family: "宋体";
+			user-select:none;
+			background: url('1.jpg') no-repeat;
+			background-size: 100%;
+			/*background-color: red;*/
+		}
+		.section{
+			position: relative;
+			left:30px;
+			top:40px;
+			width:805px;
+			height: 500px;
+			background-color: rgba(238, 228, 228, 0.1);
+			margin:165px auto 0;
+			text-align: center;
+		}
+		.section h2{
+			height: 120px;
+			line-height: 120px;
+			font-size: 60px;
+			color:#2e0444;
+		}
+		.section .s-result{
+			height: 600px;
+			color: rgb(247, 103, 103), 233, 234);
+		}
+		.s-result .number{
+			font-family: "黑体";
+			float: left;
+			width: 895px;
+			height: 300px;
+			line-height: 300px;
+			margin-left: -40px;
+			font-size: 120px;
+			font-weight: bold;
+		}
+		.btn{
+			position:absolute;
+			left: 50%;
+			margin-left: -161px;
+			bottom: -50px;
+			width: 323px;
+			height: 81px;
+			border-radius: 30px;
+			background-color: #000;
+			cursor:pointer;
+		}
+		.btn p{
+			line-height: 81px;
+			font-size: 50px;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="section">
+		<h2>高一6班</h2>
+		<h2>看看谁是今天的幸运儿！</h2>
+		<div class="s-result">
+		</div>
+		<div class="btn">
+			<p>点 击 抽 取</p>
+		</div>
+	</div>
+	<script>
+		var oBtn = document.getElementsByClassName('btn')[0];
+		var oResult = document.getElementsByClassName('s-result')[0];
+		var arrName = ['马梓豪','曹博阳','戚佳豪','王坤鹏','胡征程','刘奥鑫','张宇轩','王俊锜','朱政宇','梁康','李响','郭智谦','魏诚恩','马昊天','吕志豪','王之轩','聂宇航','詹智新','田博阳','张哲涵','石一帆','张卓高','马晨铭','莫远赛','王宇杰','乔诗豪','贺襄宜','张智勇','陈思维','岳安齐','夏雨欣','田无忧','林诗妍','冯雨畅','王昕祎','余思盈','李佳妍','张佳怡','刘睿颖','杨昕玥','焦雨欣','宗雨诺','黄琰','刘妤笑','汤显娜','石语凡','莫心言','邢梦源','胡耀文','李睿婕','杨泽欣','张凌会','陈翰宇','章丁炀','杨海宏','凌小岚','肖子淇','何祯祯',
+'A_dmin']; 		//抽签的内容
+		var step = 1;
+		var cnt = 1;
+		var flag = true;
+		oBtn.onclick = function (){
+			if(flag){
+				step = 1;
+				creatName();
+				flag = false;
+			}else{
+				var d =  document.getElementsByClassName('number')[0];
+				oResult.removeChild(d);
+				step = 1;
+				creatName();
+			}
+		}
+		function getName(){
+			var num = Math.floor(Math.random()*(arrName.length-1));
+			var n = arrName[num];
+			arrName.splice(num,1);
+			return n;
+		}
+		function creatName(){
+			if(step > cnt){
+				return null;
+			}
+			step++;
+			
+			var oDiv = document.createElement('div');
+			oDiv.className = 'number';
+			
+			oResult.appendChild(oDiv);
+			
+			var dis = 1;
+			var maxDis = 30;
+			var mySet = setInterval(function(){
+				dis++;
+				if(dis > maxDis){
+					oDiv.innerHTML = getName();
+					clearInterval(mySet);
+					creatName();
+					return null;
+				}
+				oDiv.innerHTML = arrName[Math.floor(Math.random()*(arrName.length-1))];
+			},50);
+		}
+	</script>
+</body>
+</html>
